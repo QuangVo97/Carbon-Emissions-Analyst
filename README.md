@@ -13,20 +13,20 @@ select * from product_emissions limit 5
 |10261-1-2017|14|16|25|2017|Multifunction Printers|110.0|1488|30.65|5.51|63.84|
 |10261-2-2017|14|16|25|2017|Multifunction Printers|110.0|1818|25.08|4.51|70.41|
 
-## Analyst part
+## Analyst & conclusion part
 
 ### The products contribute the most to carbon emissions.
 ```
-select   year
-        ,product_name
+select   year as Year
+        ,product_name as Product_Name
         ,ROUND(AVG(weight_kg),2) as Agv_Weight_kg
-        ,round(avg(carbon_footprint_pcf),2) as (Avg_Carbon_Footprint_pcf)
+        ,round(avg(carbon_footprint_pcf),2) as Avg_Carbon_Footprint_pcf
 from product_emissions 
 group by year, product_name
 order by carbon_footprint_pcf desc
 limit 10
 ```
-|year|product_name|Agv_Weight_kg|Avg_Carbon_Footprint_pcf|
+|Year|Product_Name|Agv_Weight_kg|Avg_Carbon_Footprint_pcf|
 |----|------------|-------------|------------------------|
 |2015|Wind Turbine G128 5 Megawats|600000.0|3718044.00|
 |2015|Wind Turbine G132 5 Megawats|600000.0|3276187.00|
@@ -128,7 +128,7 @@ Limit 10
 ### The countries with the highest contribution to carbon emissions
 ```
 select 	  country_name
-		    , round(avg(carbon_footprint_pcf),2) as Avg_Carbon_Footprint_pcf
+	, round(avg(carbon_footprint_pcf),2) as Avg_Carbon_Footprint_pcf
 from product_emissions as product
 left join carbon_emissions.countries as contgroup
 	on product.company_id = contgroup.id
